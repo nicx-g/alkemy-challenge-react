@@ -4,7 +4,7 @@ import {AuthUserContext} from '../context/authUser';
 import axios from 'axios';
 
 const useUser = () => {
-    const {loginToken} = useContext(AuthUserContext)
+    const {loginToken, setLoginToken} = useContext(AuthUserContext)
     const [utils, setUtils] = useState({
         loading: false,
         error: false
@@ -19,6 +19,7 @@ const useUser = () => {
         .then(resp => {
             setUtils({...utils, loading: false})
             localStorage.setItem('loginToken', resp.data.token)
+            setLoginToken(resp.data.token)
             history.push('/home')
         })
         .catch(error => {
