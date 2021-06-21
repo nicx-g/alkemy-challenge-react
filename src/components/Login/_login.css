@@ -1,0 +1,37 @@
+.loadingButton{
+    position: relative;
+    pointer-events: none!important;
+    overflow: hidden;
+}
+
+.loadingButton::after{
+    background: #0d6efd;
+    content: '';
+    display:block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+.loadingButton::before{
+    animation: spinner 1s infinite linear;
+    border: 0;
+    border: 3px solid #fff;
+    border-left: 3px solid #0d6efd;
+    border-radius: 50%;
+    content:'';
+    display: block;
+    height: 90%;
+    left: 25%;
+    position: absolute;
+    top: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+@keyframes spinner {
+    0%{transform: rotate(0deg);}
+    100%{transform: rotate(360deg);}
+}

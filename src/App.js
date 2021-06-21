@@ -1,10 +1,19 @@
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import Login from "./components/Login/Login";
+import Home from './components/Home/Home';
+import AuthUserProvider from "./context/authUser";
+
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">
-                <h1>Buenass</h1>
-            </header>
-        </div>
+        <AuthUserProvider>
+            <Router>
+                <Switch>
+                    <Redirect exact to="/home" from="/" />
+                    <Route path="/login" component={Login} />
+                    <Route path="/home" component={Home}/>
+                </Switch>
+            </Router>
+        </AuthUserProvider>
     );
 }
 
