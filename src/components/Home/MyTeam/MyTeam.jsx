@@ -311,12 +311,14 @@ const MyTeam = () => {
                 <h1 className="h2">Mi equipo</h1>
             </div>
             {equipo.length === 0 ?
-                <div>No hay equipo</div> :
+                <div className="alert alert-warning" role="alert">
+                    <p>Por ahora no hay nadie en el equipo :(</p>
+                    <p>Prueba con buscar algún héroe en la barra de búsqueda!</p>
+                </div> :
                 equipo.map(hero => (
-                    <CharacterCard key={hero.id} hero={hero}/>
+                    <CharacterCard key={hero.id} hero={hero} />
                 ))
             }
-            
         </div>
     )
 }
