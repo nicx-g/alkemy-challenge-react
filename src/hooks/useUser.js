@@ -15,6 +15,11 @@ const useUser = () => {
         axios.post('http://challenge-react.alkemy.org', {
             email,
             password
+        }, {
+            mode: 'no-cors',
+            "Headers": {
+                'Access-Control-Allow-Origin':'*'
+            }
         })
         .then(resp => {
             setUtils({...utils, loading: false})
