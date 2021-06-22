@@ -319,7 +319,6 @@ const MyTeam = () => {
                     <CharacterCard key={hero.id} hero={hero} />
                 ))
             }
-
         </div>
     )
 }
