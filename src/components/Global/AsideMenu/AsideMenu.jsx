@@ -18,8 +18,8 @@ const AsideMenu = () => {
                     <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                         <div className="accordion-body d-flex flex-column">
                             {myTeam.length !== 0 ?
-                                averageStats?.powerstats?.map(item => (
-                                    <span>{item.name.replace(/^\w/, c => c.toUpperCase())}: {item.value}</span>
+                                averageStats?.powerstats?.map((item, index) => (
+                                    <span key={index}>{item.name.replace(/^\w/, c => c.toUpperCase())}: {item.value}</span>
                                 )) :
                                 <span>No tenemos datos por el momento, agrega algún héroe!</span>
                             }

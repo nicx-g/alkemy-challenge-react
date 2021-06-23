@@ -60,14 +60,25 @@ const useHeroes = () => {
         return averageHeightWeight
     }
     
+    const getAlignment = (myTeam) => {
+        let newObject = {
+            good: 0,
+            bad: 0,
+        }
+        myTeam.map(item => {
+            if(item.biography.alignment === 'good') newObject.good += 1;
+            if(item.biography.alignment === 'bad') newObject.bad += 1;
+        })
+        return newObject;
+    }
     
     useEffect(() => {
-        const averagePowerstats = getAveragePowerStats(myTeam)
-        const averageHeightWeitght = getAverageHeightWeight(myTeam)
+        const averagePowerstats = getAveragePowerStats(myTeam);
+        const averageHeightWeitght = getAverageHeightWeight(myTeam);
         setAverageStats({
             powerstats: averagePowerstats,
             appearance: averageHeightWeitght
-        })
+        });
     }, [myTeam])
     
     const search = axios.create({
@@ -79,29 +90,47 @@ const useHeroes = () => {
     })
 
     const addToMyTeam = (hero) => {
+        const alignment = getAlignment(myTeam)
         setUtils({
             heroAdded: false,
             errorHeroAdded: false
         })
-        setMyTeam([
-            ...myTeam,
-            hero
-        ])
-        setUtils({...utils, heroAdded: true})
+        if(myTeam.find(item => item.id === hero.id)){
+            setUtils({...utils, errorHeroAdded: 'Ya agregaste este héroe! prueba con otro'})
+        } else if(hero.biography.alignment === 'neutral'){
+            setUtils({...utils, errorHeroAdded: 'El equipo debe contener 3 miembros con orientación buena y 3 miembros con orientación mala. Este personaje es un neutral'})
+        } else if(alignment.good >= 3 && hero.biography.alignment === 'good'){
+            setUtils({...utils, errorHeroAdded: 'El equipo no puede tener más de 3 héroes!'})
+        } else if(alignment.bad >= 3 && hero.biography.alignment === 'bad'){
+            setUtils({...utils, errorHeroAdded: 'El equipo no puede tener más de 3 villanos!'})
+        } else {
+            setMyTeam([
+                ...myTeam,
+                hero
+            ])
+            setUtils({...utils, heroAdded: true})
+        }
         setTimeout(() => {
             setUtils({
                 heroAdded: false,
                 errorHeroAdded: false
             })
-        }, 2000)
+        }, 3000)
     }
+
+    const removeHero = (hero) => {
+        const newTeam = myTeam.filter(item => item.id !== hero.id)    
+        setMyTeam(newTeam)
+    }
+    
     
     return {
         search,
         myTeam,
         averageStats,
         utils,
-        addToMyTeam
+        addToMyTeam,
+        removeHero
     }
 }
 
