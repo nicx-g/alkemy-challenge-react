@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+import useHeroes from '../../../hooks/useHeroes';
 
 const AsideMenu = () => {
+    const {averageStats, myTeam} = useHeroes()
     return (
         <div className='w-100 row row-cols-1'>
             <div className='col-12 text-center my-4'>
@@ -15,12 +17,13 @@ const AsideMenu = () => {
                     </h2>
                     <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                         <div className="accordion-body d-flex flex-column">
-                            <span>Stats1</span>
-                            <span>Stats2</span>
-                            <span>Stats3</span>
-                            <span>Stats4</span>
-                            <span>Stats5</span>
-                            <span>Stats6</span>
+                            {myTeam.length !== 0 ?
+                                averageStats?.powerstats?.map(item => (
+                                    <span>{item.name.replace(/^\w/, c => c.toUpperCase())}: {item.value}</span>
+                                )) :
+                                <span>No tenemos datos por el momento, agrega algún héroe!</span>
+                            }
+                            {}
                         </div>
                     </div>
                 </div>
@@ -32,8 +35,14 @@ const AsideMenu = () => {
                     </h2>
                     <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
                         <div className="accordion-body d-flex flex-column">
-                            <span>altura1</span>
-                            <span>altura2</span>
+                            {myTeam.length !== 0 ?
+                                <>
+                                    <span>Altura: {averageStats.appearance.height}</span>
+                                    <span>Peso: {averageStats.appearance.weight}</span>
+                                </> : 
+                                <span>No tenemos datos por el momento, agrega algún héroe!</span>
+                            }
+                            
                         </div>
                     </div>
                 </div>
