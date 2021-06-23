@@ -17,7 +17,7 @@ const SearchBar = () => {
             validate={validate}
             onSubmit={values => {
                 let searchwithoutspaces = values.search.trim().split(' ').join('-')
-                history.push(`search/${searchwithoutspaces}`)
+                history.push(`/search/${searchwithoutspaces}`)
             }}
         >
             {({isValid}) => (
