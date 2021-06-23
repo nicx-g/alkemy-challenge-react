@@ -48,18 +48,20 @@ const SearchResult = () => {
                     <div className="toast show showing align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
                         <div className="d-flex">
                             <div className="toast-body">
-                                Héroe añadido con éxito al equipo.
+                                Personaje añadido con éxito al equipo.
                             </div>
                         </div>
                     </div>
                 </div> :
                 utils.errorHeroAdded ?
-                    <div className="toast show showing align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                        <div className="d-flex">
-                            <div className="toast-body">
-                                Error
+                    <div className='position-fixed bottom-0 end-0 p-4'>
+                        <div className="toast show showing align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div className="d-flex">
+                                <div className="toast-body">
+                                    {utils.errorHeroAdded}
+                                </div>
+                                <button type="button" className="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                             </div>
-                            <button type="button" className="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                         </div>
                     </div> :
                     null
