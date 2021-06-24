@@ -20,6 +20,7 @@ const SearchResult = () => {
             return request;
         }
         getData()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [heroesNames])
 
     return (
@@ -48,7 +49,7 @@ const SearchResult = () => {
                     <div className="toast show showing align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
                         <div className="d-flex">
                             <div className="toast-body">
-                                Personaje añadido con éxito al equipo.
+                                {utils.heroAddedInfo} añadido con éxito al equipo.
                             </div>
                         </div>
                     </div>
@@ -60,7 +61,6 @@ const SearchResult = () => {
                                 <div className="toast-body">
                                     {utils.errorHeroAdded}
                                 </div>
-                                <button type="button" className="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                             </div>
                         </div>
                     </div> :

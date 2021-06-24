@@ -1,6 +1,4 @@
-import {useEffect} from 'react';
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import { useHistory } from 'react-router-dom';
 import useUser from '../../../hooks/useUser'
 
 const validate = values => {
@@ -17,11 +15,7 @@ const validate = values => {
 }
 
 const SignupForm = () => {
-    const {loginUser, isLogged, loginError, loginLoading} = useUser();
-    const history = useHistory();
-    useEffect(() => {
-        if(isLogged)history.push('/prueba1')
-    }, [isLogged])
+    const {loginUser, loginError, loginLoading} = useUser();
 
     return (
         <Formik

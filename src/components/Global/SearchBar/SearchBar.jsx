@@ -4,7 +4,7 @@ import {useHistory} from 'react-router-dom';
 const validate = values => {
     const errors = {};
     if (!values.search) {
-        errors.email = 'Requerido';
+        errors.search = 'Requerido';
     }
     return errors;
 }
