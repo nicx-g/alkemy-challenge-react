@@ -10,6 +10,7 @@ const SearchingCharacters = () => {
     const history = useHistory();
     useEffect(() => {
         if(!isLogged)history.push('/login')
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLogged])
     return (
         <div className='min-vh-100 row m-0'>

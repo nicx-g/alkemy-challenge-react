@@ -5,10 +5,26 @@ import axios from 'axios';
 const useHeroes = () => {
     const {myTeam, utils, averageStats, setMyTeam, setUtils, setAverageStats} = useContext(HeroesContext)
     
+    const search = axios.create({
+        baseURL: 'https://superheroapi.com/api.php/4304535416272042/search',
+        "mode" : 'no-cors',
+        "Headers" : {
+            'Access-Control-Allow-Origin':'*'
+        }
+    })
+
+    const searchById = axios.create({
+        baseURL: 'https://superheroapi.com/api.php/4304535416272042',
+        "mode" : 'no-cors',
+        "Headers" : {
+            'Access-Control-Allow-Origin':'*'
+        }
+    })
+    
     const getAveragePowerStats = (myTeam) => {
         //Sumar todos los powerstats
         let arrayPowerstats = []
-        myTeam.map(item => {
+        myTeam.forEach(item => {
             for (const property in item.powerstats){
                 let index = arrayPowerstats.findIndex(powerstat => powerstat.name === property)
                 if(arrayPowerstats.find(powerstat => powerstat.name === property)){
@@ -23,7 +39,7 @@ const useHeroes = () => {
         })
         //Traducir a español (ponele) y promediar con la cantidad de miembros en el team
         let averagePowerstats = []
-        arrayPowerstats.map(item => {
+        arrayPowerstats.forEach(item => {
             for(const property in item){
                 if(item[property] === 'intelligence') item[property] = 'inteligencia'
                 if(item[property] === 'strength') item[property] = 'fuerza'
@@ -49,7 +65,7 @@ const useHeroes = () => {
         // Sumar pesos y alturas    
         let heights = []
         let weights = []
-        myTeam.map(item => {
+        myTeam.forEach(item => {
             heights.push(parseInt(item.appearance.height[1].replace(' cm', '')))
             weights.push(parseInt(item.appearance.weight[1].replace(' kg', '')))
         })
@@ -65,7 +81,7 @@ const useHeroes = () => {
             good: 0,
             bad: 0,
         }
-        myTeam.map(item => {
+        myTeam.forEach(item => {
             if(item.biography.alignment === 'good') newObject.good += 1;
             if(item.biography.alignment === 'bad') newObject.bad += 1;
         })
@@ -79,16 +95,9 @@ const useHeroes = () => {
             powerstats: averagePowerstats,
             appearance: averageHeightWeitght
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [myTeam])
     
-    const search = axios.create({
-        baseURL: 'https://superheroapi.com/api.php/4304535416272042/search',
-        "mode" : 'no-cors',
-        "Headers" : {
-            'Access-Control-Allow-Origin':'*'
-        }
-    })
-
     const addToMyTeam = (hero) => {
         const alignment = getAlignment(myTeam)
         setUtils({
@@ -96,7 +105,7 @@ const useHeroes = () => {
             errorHeroAdded: false
         })
         if(myTeam.find(item => item.id === hero.id)){
-            setUtils({...utils, errorHeroAdded: 'Ya agregaste este héroe! prueba con otro'})
+            setUtils({...utils, errorHeroAdded: 'Ya agregaste este personaje! prueba con otro'})
         } else if(hero.biography.alignment === 'neutral'){
             setUtils({...utils, errorHeroAdded: 'El equipo debe contener 3 miembros con orientación buena y 3 miembros con orientación mala. Este personaje es un neutral'})
         } else if(alignment.good >= 3 && hero.biography.alignment === 'good'){
@@ -108,7 +117,7 @@ const useHeroes = () => {
                 ...myTeam,
                 hero
             ])
-            setUtils({...utils, heroAdded: true})
+            setUtils({...utils, heroAdded: true, heroAddedInfo: hero.name})
         }
         setTimeout(() => {
             setUtils({
@@ -126,6 +135,7 @@ const useHeroes = () => {
     
     return {
         search,
+        searchById,
         myTeam,
         averageStats,
         utils,
