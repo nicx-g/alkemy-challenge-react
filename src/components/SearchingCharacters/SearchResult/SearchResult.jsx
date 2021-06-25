@@ -15,7 +15,10 @@ const SearchResult = () => {
             setHeroesSearchResult([]);
             setErrorSearch(false);
             const request = await search.get(heroesNames.split('-').join('%20').toLowerCase());
-            if (request.data.error) setErrorSearch(true);
+            if (request.data.error) {
+                setErrorSearch(true)
+                setHeroesSearchResult([null])
+            };
             if (request.data.results) setHeroesSearchResult(request.data.results)
             return request;
         }

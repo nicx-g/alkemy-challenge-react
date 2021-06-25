@@ -25,7 +25,7 @@ const CharacterCardExtended = ({ hero }) => {
                     </div>
                 </div>
                 <div className="col-md-4 p-4">
-                    <img src={hero.image?.url} className="img-fluid rounded-start" alt="..." />
+                    <img src={hero.image?.url} className="img-fluid rounded-start" alt={`Imagen de ${hero.name}`} />
                 </div>
             </div>
         </div>
